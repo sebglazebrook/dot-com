@@ -1,0 +1,7 @@
+[package]
+name = "dot-com"
+version = "0.1.0"
+authors = ["sebglazebrook"]
+
+[dependencies]
+iron = "*"
