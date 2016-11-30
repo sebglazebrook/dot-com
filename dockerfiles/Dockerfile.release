@@ -1,0 +1,7 @@
+FROM debian:jessie
+
+WORKDIR /code
+
+COPY dot-com /code/dot-com
+
+CMD ./dot-com

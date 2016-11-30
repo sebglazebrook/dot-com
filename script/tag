@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+
+VERSION_NUMBER=$1
+
+docker tag sebglazebrook/dot-com sebglazebrook/dot-com:$VERSION_NUMBER
+

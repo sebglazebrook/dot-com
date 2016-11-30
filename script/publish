@@ -1,0 +1,9 @@
+#!/bin/bash
+set -uex
+
+VERSION_NUMBER=$1
+
+./script/build-binary
+./script/tag $VERSION_NUMBER
+
+docker push sebglazebrook/dot-com:$VERSION_NUMBER

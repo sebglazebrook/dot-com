@@ -1,0 +1,16 @@
+#!/bin/bash
+set -uex
+
+# build the builder image
+./script/build
+
+# create the binary
+BUILDER_IMAGE_ID=$(docker create sebglazebrook/dot-com cargo build --release)
+
+# extract the binary
+docker cp $BUILDER_IMAGE_ID:/code/target/release/dot-com .
+
+docker rm $BUILDER_IMAGE_ID
+
+# build a new image with that binary
+docker build --tag sebglazebrook/dot-com  --file dockerfiles/Dockerfile.release .
