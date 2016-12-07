@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -eux
+
+VERSION=$1
+
+# ssh into box
+ssh $SSH_ARGS
+
+# pull new image
+docker pull sebglazebrook/dot-com:$VERSION
+
+OLD_IMAGE=$(docker ps --quiet --filter "name=dot-com")
+
+# stop old one
+docker stop $OLD_ONE
+
+# start new one
+docker run --network=host -d --name dot-com sebglazebrook/dot-com:$VERSION
+
+# perform smoke test
+curl -I localhost
+
+# delete old images
+docker rmi $(docker images sebglazebrook/dot-com --filter "before=sebglazebrook/dot-com:$VERSION" --quiet)
+
+# exit out of the ssh session
+exit
